@@ -1,13 +1,21 @@
+local function get_pos(x, y)
+	local level_pos = go.get_position("level")
+	return vmath.vector3(x * 64 - 32 + level_pos.x, y * 64 - 32 + level_pos.y, level_pos.z)
+end
+	
 local function add_mines(self)
 	local x, y, w, h = tilemap.get_bounds("board#tiles")
+	print(h)
+	print(go.get_position("level"))
 	for ix = x, x + w - 1 do
-		for iy = y + 2, y + h - 1 do
-			pos = vmath.vector3(ix * 64 - 32, iy * 64 - 32, 1)
-			factory.create("#mines_factory", pos)
+		for iy = y, y + h - 1 do
+			pos = get_pos(ix, iy)
+			self.mines[ix .. ":" .. iy] = factory.create("#mines_factory", pos)
 		end
 	end
 end
 
 function init(self)
+	self.mines = {}
 	add_mines(self)
 end

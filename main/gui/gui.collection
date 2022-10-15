@@ -1,30 +1,10 @@
-name: "main"
-collection_instances {
-  id: "gui"
-  collection: "/main/gui/gui.collection"
-  position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-  scale3 {
-    x: 1.0
-    y: 1.0
-    z: 1.0
-  }
-}
+name: "default"
 scale_along_z: 0
 embedded_instances {
-  id: "board"
+  id: "background"
   data: "components {\n"
-  "  id: \"tiles\"\n"
-  "  component: \"/main/board.tilemap\"\n"
+  "  id: \"background\"\n"
+  "  component: \"/main/gui/background.tilemap\"\n"
   "  position {\n"
   "    x: 0.0\n"
   "    y: 0.0\n"
@@ -42,7 +22,7 @@ embedded_instances {
   ""
   position {
     x: 0.0
-    y: 128.0
+    y: 0.0
     z: 0.0
   }
   rotation {
@@ -58,10 +38,10 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "level"
+  id: "button"
   data: "components {\n"
-  "  id: \"level\"\n"
-  "  component: \"/main/level.script\"\n"
+  "  id: \"button\"\n"
+  "  component: \"/main/gui/button.gui\"\n"
   "  position {\n"
   "    x: 0.0\n"
   "    y: 0.0\n"
@@ -76,12 +56,29 @@ embedded_instances {
   "  property_decls {\n"
   "  }\n"
   "}\n"
-  "embedded_components {\n"
-  "  id: \"mines_factory\"\n"
-  "  type: \"factory\"\n"
-  "  data: \"prototype: \\\"/main/mines/mine.go\\\"\\n"
-  "load_dynamically: false\\n"
-  "\"\n"
+  ""
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+  scale3 {
+    x: 1.0
+    y: 1.0
+    z: 1.0
+  }
+}
+embedded_instances {
+  id: "count"
+  data: "components {\n"
+  "  id: \"count\"\n"
+  "  component: \"/main/gui/count.gui\"\n"
   "  position {\n"
   "    x: 0.0\n"
   "    y: 0.0\n"
@@ -93,12 +90,14 @@ embedded_instances {
   "    z: 0.0\n"
   "    w: 1.0\n"
   "  }\n"
+  "  property_decls {\n"
+  "  }\n"
   "}\n"
   ""
   position {
     x: 0.0
-    y: 128.0
-    z: 1.0
+    y: 0.0
+    z: 0.0
   }
   rotation {
     x: 0.0
