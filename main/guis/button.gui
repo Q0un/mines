@@ -4,8 +4,8 @@ fonts {
   font: "/assets/headings.font"
 }
 textures {
-  name: "mines"
-  texture: "/assets/mines.atlas"
+  name: "button"
+  texture: "/assets/button.atlas"
 }
 background_color {
   x: 0.0
@@ -103,7 +103,7 @@ nodes {
   }
   type: TYPE_BOX
   blend_mode: BLEND_MODE_ALPHA
-  texture: "mines/button"
+  texture: "button/button"
   id: "button_bg"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE

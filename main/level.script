@@ -1,0 +1,13 @@
+local function add_mines(self)
+	local x, y, w, h = tilemap.get_bounds("board#tiles")
+	for ix = x, x + w - 1 do
+		for iy = y + 2, y + h - 1 do
+			pos = vmath.vector3(ix * 64 - 32, iy * 64 - 32, 1)
+			factory.create("#mines_factory", pos)
+		end
+	end
+end
+
+function init(self)
+	add_mines(self)
+end

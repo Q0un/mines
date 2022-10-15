@@ -1,6 +1,6 @@
-tile_set: "/assets/mines.tilesource"
+tile_set: "/assets/board.tilesource"
 layers {
-  id: "layer"
+  id: "board"
   z: 0.0
   is_visible: 1
   cell {
