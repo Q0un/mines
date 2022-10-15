@@ -1,14 +1,18 @@
-function init(self)
-	self.color = "gray"
-end
+go.property("color", hash("gray"))
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("randomize") then
 		if math.random() < 0.5 then
-			self.color = "red"
+			self.color = hash("red")
 			sprite.play_flipbook("#sprite", "red_mine")
 		else
-			self.color = "blue"
+			self.color = hash("blue")
+			sprite.play_flipbook("#sprite", "blue_mine")
+		end
+	elseif message_id == hash("color") then
+		if self.color == hash("red") then
+			sprite.play_flipbook("#sprite", "red_mine")
+		else
 			sprite.play_flipbook("#sprite", "blue_mine")
 		end
 	end
