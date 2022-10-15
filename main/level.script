@@ -5,8 +5,6 @@ end
 	
 local function add_mines(self)
 	local x, y, w, h = tilemap.get_bounds("board#tiles")
-	print(h)
-	print(go.get_position("level"))
 	for ix = x, x + w - 1 do
 		for iy = y, y + h - 1 do
 			pos = get_pos(ix, iy)
@@ -15,7 +13,27 @@ local function add_mines(self)
 	end
 end
 
+local function hide_colors(self)
+	for key, value in pairs(self.mines) do
+		local sprite_url = msg.url(nil, value, "sprite")
+		sprite.play_flipbook(sprite_url, "mine")
+	end
+end
+
+local function timer_callback(self, handle, time_elapsed)
+	hide_colors(self)
+end
+
 function init(self)
 	self.mines = {}
+	self.completed = false
 	add_mines(self)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("start_game") then
+		for key, value in pairs(self.mines) do
+			msg.post(value, "randomize")
+		end
+	end
 end

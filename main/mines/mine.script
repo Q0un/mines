@@ -1,3 +1,15 @@
 function init(self)
-	
+	self.color = "gray"
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("randomize") then
+		if math.random() < 0.5 then
+			self.color = "red"
+			sprite.play_flipbook("#sprite", "red_mine")
+		else
+			self.color = "blue"
+			sprite.play_flipbook("#sprite", "blue_mine")
+		end
+	end
 end

@@ -1,4 +1,4 @@
-script: ""
+script: "/main/gui/button.gui_script"
 fonts {
   name: "system_font"
   font: "/assets/headings.font"
