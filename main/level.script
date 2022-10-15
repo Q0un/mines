@@ -34,7 +34,6 @@ function init(self)
 	msg.post(".", "acquire_input_focus")
 	
 	self.mines = {}
-	self.completed = false
 	self.blocked = true
 	self.choose = nil
 	add_mines(self)
@@ -42,15 +41,25 @@ end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("start_game") then
+		self.blocked = true
 		for key, value in pairs(self.mines) do
 			msg.post(value, "randomize")
 		end
-		timer.delay(1, false, timer_callback)
+		timer.delay(3, false, timer_callback)
+	elseif message_id == hash("restart_game") then
+		msg.post("gui/gui#gui", "hide_end")
+		msg.post("gui/gui#gui", "reset_count")
+		self.choose = nil
+		self.blocked = true
+		for key, value in pairs(self.mines) do
+			msg.post(value, "randomize")
+		end
+		timer.delay(3, false, timer_callback)
 	end
 end
 
 function on_input(self, action_id, action)
-	if action_id == hash("touch") and not self.completed and action.pressed and not self.blocked then
+	if action_id == hash("touch") and action.pressed and not self.blocked then
 		local pos = get_rev_pos(action.x, action.y)
 		local x = pos.x
 		local y = pos.y
@@ -61,6 +70,16 @@ function on_input(self, action_id, action)
 		if self.choose == nil then
 			local url = msg.url(nil, self.mines[mine_id], "mine")
 			self.choose = go.get(url, "color")
+			msg.post("gui/gui#gui", "increase_count")
+		else
+			local url = msg.url(nil, self.mines[mine_id], "mine")
+			local cur_color = go.get(url, "color")
+			if self.choose ~= cur_color then
+				self.blocked = true
+				msg.post("gui/gui#gui", "show_end")
+			else
+				msg.post("gui/gui#gui", "increase_count")
+			end
 		end
 		msg.post(self.mines[mine_id], "color")
 	end
