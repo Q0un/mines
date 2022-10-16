@@ -18,6 +18,30 @@ local function add_mines(self)
 	end
 end
 
+local function randomize_colors(self)
+	local colors = {}
+	for i = 1, 50 do
+		colors[i] = 0
+	end
+	for i = 51, 100 do
+		colors[i] = 1
+	end
+	for i = #colors, 2, -1 do
+		local j = math.random(i)
+		colors[i], colors[j] = colors[j], colors[i]
+	end
+
+	local i = 1
+	for key, value in pairs(self.mines) do
+		if colors[i] == 0 then
+			msg.post(value, "color_red")
+		else
+			msg.post(value, "color_blue")
+		end
+		i = i + 1
+	end
+end
+
 local function hide_colors(self)
 	for key, value in pairs(self.mines) do
 		local sprite_url = msg.url(nil, value, "sprite")
@@ -28,6 +52,7 @@ end
 local function timer_callback(self, handle, time_elapsed)
 	hide_colors(self)
 	self.blocked = false
+	msg.post("gui/gui#gui", "unblock_input")
 end
 
 function init(self)
@@ -42,18 +67,17 @@ end
 function on_message(self, message_id, message, sender)
 	if message_id == hash("start_game") then
 		self.blocked = true
-		for key, value in pairs(self.mines) do
-			msg.post(value, "randomize")
-		end
+		msg.post("gui/gui#gui", "block_input")
+		randomize_colors(self)
 		timer.delay(3, false, timer_callback)
 	elseif message_id == hash("restart_game") then
 		msg.post("gui/gui#gui", "hide_end")
 		msg.post("gui/gui#gui", "reset_count")
 		self.choose = nil
+
+		msg.post("gui/gui#gui", "block_input")
 		self.blocked = true
-		for key, value in pairs(self.mines) do
-			msg.post(value, "randomize")
-		end
+		randomize_colors(self)
 		timer.delay(3, false, timer_callback)
 	end
 end
