@@ -79,6 +79,8 @@ function on_message(self, message_id, message, sender)
 		self.blocked = true
 		randomize_colors(self)
 		timer.delay(3, false, timer_callback)
+	elseif message_id == hash("block_input") then
+		self.blocked = true
 	end
 end
 

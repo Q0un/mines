@@ -29,6 +29,15 @@ function on_message(self, message_id, message, sender)
 		self.count = self.count + 1
 		local count_node = gui.get_node("count")
 		gui.set_text(count_node, "Count: " .. self.count)
+		if self.count == 50 then
+			msg.post("/level", "block_input")
+			local node = gui.get_node("end")
+			local score_node = gui.get_node("end_score")
+			local end_text_node = gui.get_node("end_text")
+			gui.set_text(end_text_node, "You Win!")
+			gui.set_text(score_node, "Your score: " .. self.count)
+			gui.set_enabled(node, true)
+		end
 	elseif message_id == hash("reset_count") then
 		self.count = 0
 		local count_node = gui.get_node("count")
@@ -36,6 +45,8 @@ function on_message(self, message_id, message, sender)
 	elseif message_id == hash("show_end") then
 		local node = gui.get_node("end")
 		local score_node = gui.get_node("end_score")
+		local end_text_node = gui.get_node("end_text")
+		gui.set_text(end_text_node, "Game ended")
 		gui.set_text(score_node, "Your score: " .. self.count)
 		gui.set_enabled(node, true)
 	elseif message_id == hash("hide_end") then
