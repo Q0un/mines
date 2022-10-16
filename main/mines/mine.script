@@ -1,4 +1,5 @@
 go.property("color", hash("gray"))
+go.property("opened", false)
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("color_red") then
@@ -8,6 +9,7 @@ function on_message(self, message_id, message, sender)
 		self.color = hash("blue")
 		sprite.play_flipbook("#sprite", "blue_mine")
 	elseif message_id == hash("color") then
+		self.opened = true
 		if self.color == hash("red") then
 			sprite.play_flipbook("#sprite", "red_mine")
 		else

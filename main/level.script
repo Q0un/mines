@@ -97,8 +97,12 @@ function on_input(self, action_id, action)
 			msg.post("gui/gui#gui", "increase_count")
 		else
 			local url = msg.url(nil, self.mines[mine_id], "mine")
-			local cur_color = go.get(url, "color")
-			if self.choose ~= cur_color then
+			local mine_color = go.get(url, "color")
+			local mine_opened = go.get(url, "opened")
+			if mine_opened then
+				return
+			end
+			if self.choose ~= mine_color then
 				self.blocked = true
 				msg.post("gui/gui#gui", "show_end")
 			else
