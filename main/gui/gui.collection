@@ -38,7 +38,7 @@ embedded_instances {
   }
 }
 embedded_instances {
-  id: "gui"
+  id: "gui_obj"
   data: "components {\n"
   "  id: \"gui\"\n"
   "  component: \"/main/gui/gui.gui\"\n"

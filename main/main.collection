@@ -1,6 +1,6 @@
 name: "main"
 collection_instances {
-  id: "gui"
+  id: "gui_col"
   collection: "/main/gui/gui.collection"
   position {
     x: 0.0
